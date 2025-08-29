@@ -1,15 +1,14 @@
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
+#include <LiquidCrystal.h>
 
-// LCD setup (address 0x27, 16x2)
-LiquidCrystal_I2C lcd(0x27, 16, 2);
+// LCD pins: RS=7, E=6, D4=5, D5=4, D6=3, D7=2
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
 
 // Pin definitions
-const int btnLeft = 2;
-const int btnRight = 3;
-const int btnMode = 4;
-const int buzzer = 8;
-const int led = 9;
+const int btnLeft = 8;
+const int btnRight = 9;
+const int btnMode = 10;
+const int buzzer = 12;
+const int led = 11;
 
 int position = 0;          // Character position
 bool autoMode = false;     // Mode flag
@@ -27,10 +26,8 @@ byte customChar[8] = {
   B11111,
   B11111
 };
-
 void setup() {
-  lcd.init();
-  lcd.backlight();
+  lcd.begin(16, 2);             // Initialize 16x2 LCD
   lcd.createChar(0, customChar);
   lcd.setCursor(position, 0);
   lcd.write((byte)0);
